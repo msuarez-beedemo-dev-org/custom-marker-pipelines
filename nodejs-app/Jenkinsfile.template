@@ -1,6 +1,6 @@
 pipeline {
-  agent { label 'nodejs-app' }
-   options { 
+agent none
+options { 
     buildDiscarder(logRotator(numToKeepStr: '2'))
     } 
   stages{  
@@ -12,7 +12,8 @@ pipeline {
         }
       }
     }
-       stage('Build and Push Image') {
+  stage('Build and Push Image') {
+  agent { label 'nodejs-app' }
       when {
          beforeAgent true
          branch 'master'

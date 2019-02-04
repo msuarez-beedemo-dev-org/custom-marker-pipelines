@@ -1,19 +1,19 @@
 pipeline {
-agent none
-options { 
+  agent none
+  options { 
     buildDiscarder(logRotator(numToKeepStr: '2'))
-    } 
-  stages{  
-  stage('Test') {
+  }
+  stages {
+    stage('Test') {
+      agent { label 'nodejs-app' }
       steps {
         container('nodejs') {
           echo 'Hello World!'   
-          sh 'java -version'
+          sh 'node --version'
         }
       }
     }
-  stage('Build and Push Image') {
-  agent { label 'nodejs-app' }
+    stage('Build and Push Image') {
       when {
          beforeAgent true
          branch 'master'
@@ -22,5 +22,5 @@ options {
          echo "TODO - build and push image"
       }
     }
-    }
+  }
 }

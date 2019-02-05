@@ -13,29 +13,19 @@ pipeline {
   }
   stages {
     stage('Test') {
-      agent { 
-         kubernetes {
-          label 'nodejs-app-inline'
-          yaml """
-kind: Pod
-metadata:
-  name: nodejs-app
-spec:
-  containers:
-  - name: nodejs
-    image: node:10.10.1-alpine
-    command:
-    - cat
-    tty: true
-  - name: testcafe
-    image: 946759952272.dkr.ecr.us-east-1.amazonaws.com/kypseli/testcafe:alpha-1
-    command:
-    - cat
-    tty: true
-          """
+      agent { label 'nodejs-app' }
+      steps {
+        checkout scm
+        container('nodejs') {
+          echo 'Hello World!'   
+          sh 'node --version'
         }
+      }
+     post {
+        success {
+          stash name: 'app', includes: '*.js, public/**, views/*, Dockerfile'
         }
-     }
+      }
     }
     stage('Build and Push Image') {
     agent any

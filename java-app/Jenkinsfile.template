@@ -3,7 +3,8 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh 'cd cucumber-java-skeleton && mvn test'
+        sh 'ls'
+        sh 'pwd'
       }
     }
   }

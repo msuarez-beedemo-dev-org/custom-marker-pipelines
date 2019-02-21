@@ -1,9 +1,12 @@
 pipeline {
-  agent { label 'default-java' }
+  agent { label 'java-app' }
   stages {
     stage('Test') {
+    
       steps {
+     container('maven') {
         sh 'mvn test'
+        }
       }
     }
   }

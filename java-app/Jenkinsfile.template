@@ -1,5 +1,5 @@
 pipeline {
-  agent { label 'java-app' }
+  agent { label 'default-java' }
   stages {
     stage('Test') {
       steps {

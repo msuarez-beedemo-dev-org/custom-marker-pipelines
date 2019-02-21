@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('Test') {
       steps {
-        sh 'echo hello'
-        sh 'mvn test'
+        sh 'cd cucumber-java-skeleton && mvn test'
       }
     }
   }

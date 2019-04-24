@@ -1,6 +1,6 @@
 pipeline {
   parameters {
-    string(defaultValue: "", description: 'Cucumber Tag', name: 'Cucumber Tag')
+    string(defaultValue: "", description: 'Cucumber Tag', name: 'CUCUMBER_TAG')
   }
   agent { label 'java-app' }
   stages {
@@ -8,7 +8,7 @@ pipeline {
 
       steps {
      container('maven') {
-        sh 'mvn test'
+        sh "mvn test -Dcucumber.options=--tags @${params.CUCUMBER_TAG}"
         }
       }
     }

@@ -2,13 +2,18 @@ pipeline {
   parameters {
     string(defaultValue: "", description: 'Cucumber Tag', name: 'CUCUMBER_TAG')
   }
-  agent { label 'java-app' }
+  agent {
+    kubernetes
+    {
+    label 'java-app'
+    }
+   }
   stages {
     stage('Test') {
 
       steps {
-     container(name:'maven',envVars:[envVar: key:'CUCUMBER_TAG',value:"${params.CUCUMBER_TAG}"]) {
-       echo "$CUCUMBER_TAG"
+     container('maven') {
+       //echo "${params.CUCUMBER_TAG}"
         sh "mvn test"
         }
       }

@@ -1,14 +1,14 @@
 pipeline {
   parameters {
-    string(defaultValue: "@completed", description: 'Cucumber Tag - Default is @completed', name: 'CUCUMBER_TAG')
+    string(defaultValue: "", description: 'Cucumber Tag', name: 'CUCUMBER_TAG')
   }
   agent { label 'java-app' }
   stages {
     stage('Test') {
 
+      steps {
      container('maven') {
-       steps {
-        sh "mvn test -Dcucumber.options=--tags "${params.CUCUMBER_TAG}""
+        sh "mvn test -Dcucumber.options=--tags "@${params.CUCUMBER_TAG}""
         }
       }
     }

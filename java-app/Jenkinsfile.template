@@ -6,8 +6,8 @@ pipeline {
   stages {
     stage('Test') {
 
-      steps {
      container('maven') {
+       steps {
         sh "mvn test -Dcucumber.options=--tags "${params.CUCUMBER_TAG}""
         }
       }

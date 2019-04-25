@@ -7,8 +7,8 @@ pipeline {
     stage('Test') {
 
       steps {
-     container('maven') {
-       echo "${params.CUCUMBER_TAG}"
+     container(name:'maven',envVars:[envVar: key:'CUCUMBER_TAG',value:"${params.CUCUMBER_TAG}"]) {
+       echo "$CUCUMBER_TAG"
         sh "mvn test"
         }
       }
